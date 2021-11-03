@@ -40,8 +40,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.talk.R;
 import com.nextcloud.talk.activities.MainActivity;
 import com.nextcloud.talk.adapters.items.AdvancedUserItem;
+import com.nextcloud.talk.api.NcApi;
 import com.nextcloud.talk.application.NextcloudTalkApplication;
 import com.nextcloud.talk.databinding.DialogChooseAccountBinding;
+import com.nextcloud.talk.models.database.CapabilitiesUtil;
 import com.nextcloud.talk.models.database.User;
 import com.nextcloud.talk.models.database.UserEntity;
 import com.nextcloud.talk.models.json.participants.Participant;
@@ -73,6 +75,9 @@ public class ChooseAccountDialogFragment extends DialogFragment {
 
     @Inject
     CookieManager cookieManager;
+
+    @Inject
+    NcApi ncApi;
 
     private DialogChooseAccountBinding binding;
     private View dialogView;
@@ -138,6 +143,16 @@ public class ChooseAccountDialogFragment extends DialogFragment {
                 dismiss();
                 ((MainActivity) getActivity()).openSettings();
             });
+        }
+
+        binding.setStatus.setOnClickListener(v -> {
+            dismiss();
+            SetStatusDialogFragment setStatusDialog = SetStatusDialogFragment.newInstance(user);
+            setStatusDialog.show(((MainActivity) getActivity()).getSupportFragmentManager(), "fragment_set_status");
+        });
+
+        if (CapabilitiesUtil.isUserStatusAvailable(userUtils.getCurrentUser())){
+            binding.statusView.setVisibility(View.VISIBLE);
         }
 
         if (adapter == null) {

@@ -101,6 +101,10 @@ public class ApiUtils {
         return baseUrl + ocsApiVersion + "/apps/files_sharing/api/v1/shares";
     }
 
+    public static String getStatusUrl(String baseUrl) {
+        return baseUrl + ocsApiVersion + "/apps/user_status/api/v1/user_status";
+    }
+
     public static RetrofitBucket getRetrofitBucketForContactsSearchFor14(String baseUrl, @Nullable String searchQuery) {
         RetrofitBucket retrofitBucket = getRetrofitBucketForContactsSearch(baseUrl, searchQuery);
         retrofitBucket.setUrl(baseUrl + ocsApiVersion + "/core/autocomplete/get");

@@ -46,6 +46,9 @@ public class Capabilities {
     @JsonField(name = "provisioning_api")
     ProvisioningCapability provisioningCapability;
 
+    @JsonField(name = "user_status")
+    UserStatusCapability userStatusCapability;
+
     public SpreedCapability getSpreedCapability() {
         return this.spreedCapability;
     }
@@ -66,6 +69,10 @@ public class Capabilities {
         return this.provisioningCapability;
     }
 
+    public UserStatusCapability getUserStatusCapability() {
+        return userStatusCapability;
+    }
+
     public void setSpreedCapability(SpreedCapability spreedCapability) {
         this.spreedCapability = spreedCapability;
     }
@@ -84,6 +91,10 @@ public class Capabilities {
 
     public void setProvisioningCapability(ProvisioningCapability provisioningCapability) {
         this.provisioningCapability = provisioningCapability;
+    }
+
+    public void setUserStatusCapability(UserStatusCapability userStatusCapability) {
+        this.userStatusCapability = userStatusCapability;
     }
 
     public boolean equals(final Object o) {
