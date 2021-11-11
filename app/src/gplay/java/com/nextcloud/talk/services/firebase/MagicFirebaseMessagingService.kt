@@ -332,7 +332,7 @@ class MagicFirebaseMessagingService : FirebaseMessagingService() {
                     hasParticipantsInCall = participantList.isNotEmpty()
                     if (hasParticipantsInCall) {
                         for (participant in participantList) {
-                            if (participant.userId == signatureVerification.userEntity.userId) {
+                            if (participant.actorId == signatureVerification.userEntity.userId) {
                                 inCallOnDifferentDevice = true
                                 break
                             }
