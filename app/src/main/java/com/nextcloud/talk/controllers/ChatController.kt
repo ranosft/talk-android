@@ -268,6 +268,8 @@ class ChatController(args: Bundle) :
     var currentlyPlayedVoiceMessage: ChatMessage? = null
 
     init {
+        Log.d(TAG, "init ChatController")
+
         setHasOptionsMenu(true)
         NextcloudTalkApplication.sharedApplication!!.componentApplication.inject(this)
 
@@ -276,7 +278,7 @@ class ChatController(args: Bundle) :
         this.roomToken = args.getString(KEY_ROOM_TOKEN, "")
         this.sharedText = args.getString(BundleKeys.KEY_SHARED_TEXT, "")
 
-        Log.d(TAG, "roomToken = " + roomToken)
+        Log.d(TAG, "   roomToken = $roomToken")
 
         if (args.containsKey(KEY_ACTIVE_CONVERSATION)) {
             this.currentConversation = Parcels.unwrap<Conversation>(args.getParcelable(KEY_ACTIVE_CONVERSATION))
@@ -318,8 +320,9 @@ class ChatController(args: Bundle) :
                     @Suppress("Detekt.TooGenericExceptionCaught")
                     override fun onNext(roomOverall: RoomOverall) {
                         currentConversation = roomOverall.ocs.data
-                        Log.d(TAG, "currentConversation.toString : " + currentConversation.toString())
-                        Log.d(TAG, "currentConversation.sessionId : " + currentConversation?.sessionId)
+                        Log.d(TAG, "   currentConversation: " + currentConversation.toString())
+                        Log.d(TAG, "   token: " + currentConversation?.getToken())
+                        Log.d(TAG, "   currentConversation.sessionId: " + currentConversation?.sessionId)
                         loadAvatarForStatusBar()
 
                         setTitle()
@@ -431,7 +434,6 @@ class ChatController(args: Bundle) :
 
     override fun onViewBound(view: View) {
         actionBar?.show()
-        Log.d(TAG, "onViewBound")
         var adapterWasNull = false
 
         if (adapter == null) {
@@ -1704,6 +1706,7 @@ class ChatController(args: Bundle) :
     }
 
     private fun leaveRoom() {
+        Log.d(TAG, "leaveRoom")
         var apiVersion = 1
         // FIXME Fix API checking with guests?
         if (conversationUser != null) {
